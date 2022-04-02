@@ -30,7 +30,7 @@ useEffect(() => {
   };
   getData();
 }, []);
-/*
+
 const handleAddSubmit = async (description) => {
   const newAgent = {
     description,
@@ -39,7 +39,7 @@ const handleAddSubmit = async (description) => {
   const body = JSON.stringify(newAgent);
 
   try {
-    const response = await fetch("http://localhost:8080/api/agents", {
+    const response = await fetch("http://localhost:8080/api/agent/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const handleAddSubmit = async (description) => {
     console.log(error);
   }
 };
-
+/*
 const handleEdit = (todoId) => {
   const agentToEdit = agents.find((todo) => todo.id === todoId);
 
@@ -147,8 +147,12 @@ const handleUpdateCancel = () => {
   setErrors([]);
 };
 */
-return (
-  <>
+
+ return ( 
+    <>
+      <AddAgentsForm
+        handleAddSubmit={handleAddSubmit}
+        />
    <AgentsTable
       agents={agents}
       />
