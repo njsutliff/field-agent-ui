@@ -1,20 +1,6 @@
 import React, { useState } from "react";
-
-const initialValues = {
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    dob: "",
-    height: null
-};
 export const AddAgentsForm = (props) => {
-    const [state, setState] = useState({
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        dob: "",
-        height: null
-    })
+    const [values, setValues] = useState(props.values);
 
     /*"agentId": 1,
  "firstName": "Claudian",
@@ -24,24 +10,84 @@ export const AddAgentsForm = (props) => {
  "heightInInches": 41,
  */
     const handleInputChange = (event) => {
-        const value = event.target.value;
-        setState({
-            ...state,
-            [event.target.value]:value
-            });
-
-        /*setFirstName(event.target.value);
-        setMiddleName(event.target.value);
-        setLastName(event.target.value);
-        setDob(event.target.value);
-        setHeight(event.target.value);*/
+        const { name, value } = event.target;
+        setValues({
+            ...values,
+            [name]: value,
+        });
     };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        props.handleAddSubmit(values);
+    }
+    return (
+        <form onSubmit={handleSubmit} className="form-inline mx-2 my-4">
+            <input
+                type="text"
+                className="form-control col-6"
+                id="firstName"
+                placeholder="First Name:"
+                value={values.firstName}
+                onChange={handleInputChange}
+                name="firstName"
+                label="firstName"
+            />
+            <input
+                className="form-control col-6"
+                id="middleName"
+                placeholder="Middle Name:"
+                value={values.middleName}
+                onChange={handleInputChange}
+                name="middleName"
+                label="middleName"
+            />
+            <input
+                className="form-control col-6"
+                id="middleName"
+                placeholder="Last Name:"
+                value={values.lastName}
+                onChange={handleInputChange}
+                name="lastName"
+                label="lastName"
+            />
+            <input
+                className="form-control col-6"
+                id="dob"
+                placeholder="Date of Birth::"
+                value={values.dob}
+                onChange={handleInputChange}
+                name="dob"
+                label="date of birth"
+            />
+            <input
+            type= "number"
+                className="form-control col-6"
+                id="height"
+                placeholder="Height in Inches:"
+                value={values.height}
+                onChange={handleInputChange}
+                name="height"
+                label="height in inches"
+            />
+            <button type="submit" className="btn btn-success ml-2">
+                Add agent
+            </button>
+        </form>
 
+    )
+};
+        /*setFirstName(event.target.value);
+setMiddleName(event.target.value);
+setLastName(event.target.value);
+setDob(event.target.value);
+setHeight(event.target.value);*/
+
+/*
     const handleSubmit = (event) => {
         event.preventDefault();
         props.handleAddSubmit(state);
-    };
-
+    };*/
+/*
     return (
         <form onSubmit={handleSubmit} className="form-inline mx-2 my-4">
             <input
@@ -89,10 +135,7 @@ export const AddAgentsForm = (props) => {
                 value={state.height}
                 onChange={handleInputChange}
         />
-        <button type="submit" className="btn btn-success ml-2">
-                Add agent
-            </button>
+        
 
         </form>
-    );
-};
+    );*/

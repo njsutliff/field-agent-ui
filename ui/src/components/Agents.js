@@ -6,8 +6,11 @@ import {Errors} from "./Errors.js";
 
 function Agents() {
   const [agents, setAgents] = useState([]);
-  const [description, setDescription] = useState("");
-  const [editToDoId, setEditToDoId] = useState(0);    
+  const [firstName, setFirstName] = useState(0);
+  const [middleName, setMiddleName] = useState(1);   
+  const [lastName, setLastName] = useState(2);    
+  const [dob, setDob] = useState(3); 
+  const [height, setHeight] = useState(4);
   const [errors, setErrors] = useState([]);
 
   /*"agentId": 1,
@@ -31,13 +34,16 @@ useEffect(() => {
   getData();
 }, []);
 
-const handleAddSubmit = async (description) => {
+const handleAddSubmit = async () => {
   const newAgent = {
-    description,
+    firstName,
+    middleName,
+    lastName,
+    dob,
+    height
   };
 
   const body = JSON.stringify(newAgent);
-
   try {
     const response = await fetch("http://localhost:8080/api/agent/", {
       method: "POST",
@@ -52,9 +58,13 @@ const handleAddSubmit = async (description) => {
 
       if (data.id) {
         setAgents([...agents, data]);
-
-        setDescription("");
+        setFirstName("");
+        setMiddleName("");
+        setLastName("");
+        setDob("");
+        setHeight("");
         setErrors([]);
+        
       } else {
         setErrors(data);
       }
@@ -152,6 +162,8 @@ const handleUpdateCancel = () => {
     <>
       <AddAgentsForm
         handleAddSubmit={handleAddSubmit}
+        firstName = {firstName}
+        values = {agents}
         />
    <AgentsTable
       agents={agents}
