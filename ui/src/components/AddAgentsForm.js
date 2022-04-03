@@ -1,22 +1,8 @@
 import React, { useState } from "react";
 export const AddAgentsForm = (props) => {
-    const[firstName, setFirstName] = useState(props.firstName);
-    const[middleName, setMiddleName] = useState(props.middleName);
-    const[lastName, setLastName] = useState(props.lastName);
-    const[dob, setDob] = useState(props.dob);
-    const[height, setHeight] = useState(props.height);
-    
+    const initialFormState =  {firstName: "", middleName: "",lastName: "",dob: "",height: 0, agencies: []};
+        const [values, setValues] = useState(initialFormState);
 
-
-    const [values, setValues] = useState(props.values);
-
-    /*"agentId": 1,
- "firstName": "Claudian",
- "middleName": "C",
- "lastName": "O'Lynn",
- "dob": "1956-11-09",
- "heightInInches": 41,
- */
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setValues({
@@ -26,16 +12,17 @@ export const AddAgentsForm = (props) => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.handleAddSubmit(values);
+        props.addAgent(values);
+        setValues(initialFormState);
     }
     return (
-        <form onSubmit={handleSubmit} className="form-inline mx-2 my-4">
+        <form onSubmit={handleSubmit}> <div className="form-inline mx-2 my-4">
             <input
                 type="text"
                 className="form-control col-6"
                 id="firstName"
                 placeholder="First Name:"
-                value={firstName}
+                value={values.firstName}
                 onChange={handleInputChange}
                 name="firstName"
                 label="firstName"
@@ -44,7 +31,7 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="middleName"
                 placeholder="Middle Name:"
-                value={middleName}
+                value={values.middleName}
                 onChange={handleInputChange}
                 name="middleName"
                 label="middleName"
@@ -53,7 +40,7 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="middleName"
                 placeholder="Last Name:"
-                value={lastName}
+                value={values.lastName}
                 onChange={handleInputChange}
                 name="lastName"
                 label="lastName"
@@ -62,7 +49,7 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="dob"
                 placeholder="Date of Birth::"
-                value={dob}
+                value={values.dob}
                 onChange={handleInputChange}
                 name="dob"
                 label="date of birth"
@@ -72,14 +59,15 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="height"
                 placeholder="Height in Inches:"
-                value={height}
+                value={values.height}
                 onChange={handleInputChange}
                 name="height"
                 label="height in inches"
             />
+            </div>
             <button type="submit" className="btn btn-success ml-2">
                 Add agent
-            </button>
+            </button>   
         </form>
 
     )

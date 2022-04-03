@@ -6,21 +6,15 @@ import {Errors} from "./Errors.js";
 
 function Agents() {
   const [agents, setAgents] = useState([]);
-const[agentVar, setAgentVar] = useState(
-  [{
-    firstName:"",
-    middleName:"",
-    lastName:"",
-    dob:"",
-    height:0,
-  }]
-)
+
 //TODO i dont think useState works like this
-  const [firstName, setFirstName] = useState();
-  const [middleName, setMiddleName] = useState(1);   
-  const [lastName, setLastName] = useState(2);    
-  const [dob, setDob] = useState(3); 
-  const [height, setHeight] = useState(4);
+
+const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");   
+  const [lastName, setLastName] = useState("");    
+  const [dob, setDob] = useState(""); 
+  const [height, setHeight] = useState("");
+  const[agencies, setAgencies] = useState([]);
   const [editAgentId, setEditAgentId] = useState(0);
   const [errors, setErrors] = useState([]);
 
@@ -49,13 +43,15 @@ const handleAddSubmit = async (firstName,
   middleName,
   lastName,
   dob,
-  height) => {
+  height,
+  agencies) => {
   const newAgent = {
     firstName,
     middleName,
     lastName,
     dob,
-    height
+    height,
+    agencies
   };
 
   const body = JSON.stringify(newAgent);
@@ -77,7 +73,8 @@ const handleAddSubmit = async (firstName,
         setMiddleName("");
         setLastName("");
         setDob("");
-        setHeight("");
+        setHeight(0);
+        setAgencies([]);
         setErrors([]);
         
       } else {
@@ -196,9 +193,9 @@ const handleUpdateCancel = () => {
     <>
       <AddAgentsForm
         handleAddSubmit={handleAddSubmit}
-        firstName = {firstName}
-        values = {agents}
-        />
+        errors = {errors}
+
+      />
    <>
    <AgentsTable
       agents={agents}

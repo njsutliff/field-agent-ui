@@ -7,14 +7,15 @@ import React from "react";
 "heightInInches": 41,
 */
 export const AgentsTable = (props) => (
-  <table className="table">
+    <table className="table">
     <thead>
       <tr>
-        <th>firstName</th>
-        <th>middleName</th>
-        <th>lastName</th>
-        <th>dob</th>
-        <th>heightInInches</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+        <th>Date of Birth</th>
+        <th>Height (inches)</th>
+        <th>Agencies</th>
 
       </tr>
     </thead>
@@ -27,6 +28,7 @@ export const AgentsTable = (props) => (
             <td>{agent.lastName}</td>
             <td>{agent.dob}</td>
             <td>{agent.heightInInches}</td>
+            <td>{agent.agencies}</td>
 
             <td>
               <div>
