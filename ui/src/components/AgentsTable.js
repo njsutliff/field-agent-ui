@@ -27,7 +27,7 @@ export const AgentsTable = (props) => (
             <td>{agent.middleName}</td>
             <td>{agent.lastName}</td>
             <td>{agent.dob}</td>
-            <td>{agent.heightInInches}</td>
+            <td>{agent.height}</td>
             <td>{agent.agencies}</td>
 
             <td>

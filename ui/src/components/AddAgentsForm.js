@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-const DEFAULT_AGENT =  {firstName: "", middleName: "",lastName: "",dob: "",height: 0, agencies: []};
+const DEFAULT_AGENT =  {firstName: "", middleName: "",lastName: "",dob: "",heightInInches: 0, agencies: []};
 export const AddAgentsForm = (props) => {
 
     const [agent, setAgent] = useState(DEFAULT_AGENT);
@@ -24,12 +24,11 @@ export const AddAgentsForm = (props) => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.handleAddSubmit(agent.firstName, agent.middleName, agent.lastName, agent.dob, agent.height, agent.agencies);
+        props.handleAddSubmit(agent.firstName, agent.middleName, agent.lastName, agent.dob, agent.heightInInches, agent.agencies);
     };
     return (
         <form onSubmit={handleSubmit} className="form-inline mx-2 my-4">
             <input
-                type="text"
                 className="form-control col-6"
                 id="firstName"
                 placeholder="First Name:"
@@ -57,21 +56,22 @@ export const AddAgentsForm = (props) => {
                 onChange={handleInputChange}               
             />
             <input
+                
                 className="form-control col-6"
                 id="dob"
-                placeholder="Date of Birth::"
+                placeholder="Date of Birth:"
                 value={agent.dob} 
                 name="dob"
                 label="date of birth"
                 onChange={handleInputChange}             
             />
             <input
-            type= "number"
+            type="number"
                 className="form-control col-6"
                 id="height"
                 placeholder="Height in Inches:"
-                value={agent.height}
-                 name="height"
+                value={agent.heightInInches}
+                name="heightInInches"
                 label="height in inches"
                 onChange={handleInputChange}   
             />

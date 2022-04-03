@@ -13,7 +13,7 @@ const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");   
   const [lastName, setLastName] = useState("");    
   const [dob, setDob] = useState(""); 
-  const [height, setHeight] = useState("");
+  const [heightInInches, setHeightInInches] = useState(0);
   //const[agencies, setAgencies] = useState([]);
   const [editAgentId, setEditAgentId] = useState(0);
   const [errors, setErrors] = useState([]);
@@ -31,13 +31,13 @@ useEffect(() => {
   getData();
 }, []);
 
-const handleAddSubmit = async (firstName,middleName,lastName,dob,height,agencies) => {
+const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,agencies) => {
   const newAgent = {
     firstName,
     middleName,
     lastName,
     dob,
-    height,
+    heightInInches: parseFloat(heightInInches),
     agencies
   };
 
@@ -56,7 +56,6 @@ const handleAddSubmit = async (firstName,middleName,lastName,dob,height,agencies
 
       if (data.id) {
         setAgents([...agents, data]);
-        
         
       } else {
         setErrors(data);
