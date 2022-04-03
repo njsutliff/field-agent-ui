@@ -1,76 +1,85 @@
 import React, { useState } from "react";
+const DEFAULT_AGENT =  {firstName: "", middleName: "",lastName: "",dob: "",height: 0, agencies: []};
 export const AddAgentsForm = (props) => {
-    const initialFormState =  {firstName: "", middleName: "",lastName: "",dob: "",height: 0, agencies: []};
-        const [values, setValues] = useState(initialFormState);
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setValues({
-            ...values,
-            [name]: value,
-        });
+    const [agent, setAgent] = useState(DEFAULT_AGENT);
+    //  
+    //  const [firstName, setFirstName]     =useState(props.firstName);
+    //  const [middleName, setMiddleName]   =useState(props.middleName );
+    //  const [lastName, setLastName]       =useState(props.lastName );
+    //  const [dob, setDob]                 =useState(props.dob );
+    //  const [height, setHeight]           =useState(props.height );
+    //  const[agencies, setAgencies]        =useState(props.agencies);
+
+    const handleInputChange = event => {
+        const {name, value} = event.target;
+              console.log(event);
+        setAgent({...agent, [name]: value});
+       /* setFirstName(event.target.value);
+        setMiddleName(event.target.value);
+        setLastName(event.target.value);
+        setDob(event.target.value);
+        setHeight(event.target.value);
+        setAgencies(event.target.value);*/
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.addAgent(values);
-        setValues(initialFormState);
-    }
+        props.handleAddSubmit(agent.firstName, agent.middleName, agent.lastName, agent.dob, agent.height, agent.agencies);
+    };
     return (
-        <form onSubmit={handleSubmit}> <div className="form-inline mx-2 my-4">
+        <form onSubmit={handleSubmit} className="form-inline mx-2 my-4">
             <input
                 type="text"
                 className="form-control col-6"
                 id="firstName"
                 placeholder="First Name:"
-                value={values.firstName}
-                onChange={handleInputChange}
+                value={agent.firstName}
                 name="firstName"
                 label="firstName"
+                onChange={handleInputChange}
             />
             <input
                 className="form-control col-6"
                 id="middleName"
                 placeholder="Middle Name:"
-                value={values.middleName}
-                onChange={handleInputChange}
+                value={agent.middleName}
                 name="middleName"
                 label="middleName"
+                onChange={handleInputChange}
             />
             <input
                 className="form-control col-6"
                 id="middleName"
                 placeholder="Last Name:"
-                value={values.lastName}
-                onChange={handleInputChange}
+                value={agent.lastName}
                 name="lastName"
                 label="lastName"
+                onChange={handleInputChange}               
             />
             <input
                 className="form-control col-6"
                 id="dob"
                 placeholder="Date of Birth::"
-                value={values.dob}
-                onChange={handleInputChange}
+                value={agent.dob} 
                 name="dob"
                 label="date of birth"
+                onChange={handleInputChange}             
             />
             <input
             type= "number"
                 className="form-control col-6"
                 id="height"
                 placeholder="Height in Inches:"
-                value={values.height}
-                onChange={handleInputChange}
-                name="height"
+                value={agent.height}
+                 name="height"
                 label="height in inches"
+                onChange={handleInputChange}   
             />
-            </div>
             <button type="submit" className="btn btn-success ml-2">
                 Add agent
             </button>   
         </form>
-
-    )
+    );
 };
         /*setFirstName(event.target.value);
 setMiddleName(event.target.value);

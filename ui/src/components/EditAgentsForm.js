@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const EditTodoForm = (props) => {
+export const EditAgentsForm = (props) => {
   const [todo, setTodo] = useState(props.currentTodo);
 
   const handleInputChange = event => {

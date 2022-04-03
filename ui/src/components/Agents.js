@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {AddAgentsForm} from "./AddAgentsForm";
-import{EditAgentsForm} from "./EditAgentsForm";
+//import{EditAgentsForm} from "./EditAgentsForm";
 import {AgentsTable} from "./AgentsTable";
 import {Errors} from "./Errors.js";
 
@@ -14,17 +14,9 @@ const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");    
   const [dob, setDob] = useState(""); 
   const [height, setHeight] = useState("");
-  const[agencies, setAgencies] = useState([]);
+  //const[agencies, setAgencies] = useState([]);
   const [editAgentId, setEditAgentId] = useState(0);
   const [errors, setErrors] = useState([]);
-
-  /*"agentId": 1,
-"firstName": "Claudian",
-"middleName": "C",
-"lastName": "O'Lynn",
-"dob": "1956-11-09",
-"heightInInches": 41,
-*/
 
 useEffect(() => {
   const getData = async () => {
@@ -39,12 +31,7 @@ useEffect(() => {
   getData();
 }, []);
 
-const handleAddSubmit = async (firstName,
-  middleName,
-  lastName,
-  dob,
-  height,
-  agencies) => {
+const handleAddSubmit = async (firstName,middleName,lastName,dob,height,agencies) => {
   const newAgent = {
     firstName,
     middleName,
@@ -69,13 +56,7 @@ const handleAddSubmit = async (firstName,
 
       if (data.id) {
         setAgents([...agents, data]);
-        setFirstName("");
-        setMiddleName("");
-        setLastName("");
-        setDob("");
-        setHeight(0);
-        setAgencies([]);
-        setErrors([]);
+        
         
       } else {
         setErrors(data);
@@ -87,7 +68,7 @@ const handleAddSubmit = async (firstName,
     console.log(error);
   }
 };
-
+/*
 const handleEdit = (agentId) => {
   const agentToEdit = agents.find((agent) => agent.id === agentId);
   setEditAgentId  (agentToEdit.id);
@@ -161,7 +142,7 @@ const handleUpdateSubmit = async (firstName,
     console.log(error);
   }
 };
-/*
+
 const handleDelete = async (todoId) => {
   try {
     const response = await fetch(
@@ -190,20 +171,21 @@ const handleUpdateCancel = () => {
 */
 
  return ( 
-    <>
+  <>
+    <Errors errors={errors} />
+    
       <AddAgentsForm
         handleAddSubmit={handleAddSubmit}
-        errors = {errors}
-
+        errors={errors}
       />
-   <>
-   <AgentsTable
+  
+    <AgentsTable
       agents={agents}
-      handleEdit={handleEdit}
-      />
-  </>
+      
+    />
   </>
 );
+    
 /*
 return (
   <>
