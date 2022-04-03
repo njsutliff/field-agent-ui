@@ -6,11 +6,22 @@ import {Errors} from "./Errors.js";
 
 function Agents() {
   const [agents, setAgents] = useState([]);
-  const [firstName, setFirstName] = useState(0);
+const[agentVar, setAgentVar] = useState(
+  [{
+    firstName:"",
+    middleName:"",
+    lastName:"",
+    dob:"",
+    height:0,
+  }]
+)
+//TODO i dont think useState works like this
+  const [firstName, setFirstName] = useState();
   const [middleName, setMiddleName] = useState(1);   
   const [lastName, setLastName] = useState(2);    
   const [dob, setDob] = useState(3); 
   const [height, setHeight] = useState(4);
+  const [editAgentId, setEditAgentId] = useState(0);
   const [errors, setErrors] = useState([]);
 
   /*"agentId": 1,
@@ -34,7 +45,11 @@ useEffect(() => {
   getData();
 }, []);
 
-const handleAddSubmit = async () => {
+const handleAddSubmit = async (firstName,
+  middleName,
+  lastName,
+  dob,
+  height) => {
   const newAgent = {
     firstName,
     middleName,
@@ -75,25 +90,36 @@ const handleAddSubmit = async () => {
     console.log(error);
   }
 };
-/*
-const handleEdit = (todoId) => {
-  const agentToEdit = agents.find((todo) => todo.id === todoId);
 
-  setDescription(agentToEdit.description);
-  setEditToDoId(agentToEdit.id);
+const handleEdit = (agentId) => {
+  const agentToEdit = agents.find((agent) => agent.id === agentId);
+  setEditAgentId  (agentToEdit.id);
+  setFirstName(agentToEdit.firstName);
+  setMiddleName(agentToEdit.middleName);
+  setLastName(agentToEdit.lastName);
+  setDob(agentToEdit.dob);
+  setHeight(agentToEdit.height);
 };
 
-const handleUpdateSubmit = async (description) => {
-  const updatedToDo = {
-    id: editToDoId,
-    description,
+const handleUpdateSubmit = async (firstName,
+  middleName,
+  lastName,
+  dob,
+  height) => {
+  const updatedAgent = {
+    id: editAgentId,
+    firstName,
+    middleName,
+    lastName,
+    dob,
+    height
   };
 
-  const body = JSON.stringify(updatedToDo);
+  const body = JSON.stringify(updatedAgent);
 
   try {
     const response = await fetch(
-      `http://localhost:8080/api/agents/${editToDoId}`,
+      `http://localhost:8080/api/agents/${editAgentId}`,
       {
         method: "PUT",
         headers: {
@@ -104,21 +130,29 @@ const handleUpdateSubmit = async (description) => {
     );
 
     if (response.status === 204) {
-      const newTodos = [...agents];
+      const newAgents = [...agents];
 
-      const todoIndexToEdit = agents.findIndex(
-        (todo) => todo.id === editToDoId
+      const agentIndexToEdit = agents.findIndex(
+        (agent) => agent.id === editAgentId
       );
 
-      newTodos[todoIndexToEdit] = {
-        id: editToDoId,
-        description,
+      newAgents[agentIndexToEdit] = {
+        id: editAgentId,
+        firstName,
+    middleName,
+    lastName,
+    dob,
+    height
       };
 
-      setAgents(newTodos);
-
-      setDescription("");
-      setEditToDoId(0);
+      setAgents(newAgents);
+      setFirstName("");
+      setMiddleName("");
+      setLastName("");
+      setDob("");
+      setHeight("");
+     
+      setEditAgentId(0);
       setErrors([]);
     } else if (response.status === 400) {
       const data = await response.json();
@@ -130,7 +164,7 @@ const handleUpdateSubmit = async (description) => {
     console.log(error);
   }
 };
-
+/*
 const handleDelete = async (todoId) => {
   try {
     const response = await fetch(
@@ -165,9 +199,12 @@ const handleUpdateCancel = () => {
         firstName = {firstName}
         values = {agents}
         />
+   <>
    <AgentsTable
       agents={agents}
+      handleEdit={handleEdit}
       />
+  </>
   </>
 );
 /*

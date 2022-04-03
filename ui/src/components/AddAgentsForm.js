@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 export const AddAgentsForm = (props) => {
+    const[firstName, setFirstName] = useState(props.firstName);
+    const[middleName, setMiddleName] = useState(props.middleName);
+    const[lastName, setLastName] = useState(props.lastName);
+    const[dob, setDob] = useState(props.dob);
+    const[height, setHeight] = useState(props.height);
+    
+
+
     const [values, setValues] = useState(props.values);
 
     /*"agentId": 1,
@@ -27,7 +35,7 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="firstName"
                 placeholder="First Name:"
-                value={values.firstName}
+                value={firstName}
                 onChange={handleInputChange}
                 name="firstName"
                 label="firstName"
@@ -36,7 +44,7 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="middleName"
                 placeholder="Middle Name:"
-                value={values.middleName}
+                value={middleName}
                 onChange={handleInputChange}
                 name="middleName"
                 label="middleName"
@@ -45,7 +53,7 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="middleName"
                 placeholder="Last Name:"
-                value={values.lastName}
+                value={lastName}
                 onChange={handleInputChange}
                 name="lastName"
                 label="lastName"
@@ -54,7 +62,7 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="dob"
                 placeholder="Date of Birth::"
-                value={values.dob}
+                value={dob}
                 onChange={handleInputChange}
                 name="dob"
                 label="date of birth"
@@ -64,7 +72,7 @@ export const AddAgentsForm = (props) => {
                 className="form-control col-6"
                 id="height"
                 placeholder="Height in Inches:"
-                value={values.height}
+                value={height}
                 onChange={handleInputChange}
                 name="height"
                 label="height in inches"
