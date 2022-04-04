@@ -5,14 +5,25 @@ export const AddAgentsForm = (props) => {
     const [agent, setAgent] = useState(DEFAULT_AGENT);
    
     const handleInputChange = event => {
-        const {name, value} = event.target;
-              console.log(event);
-        setAgent({...agent, [name]: value});
+        //const {name, value} = event.target;
+                //setAgent({...agent, [name]: value});
+                const nextAgent = {...agent};
+                let value = event.target.value;
+                if(event.target.type=="number"){
+                    value=parseInt(value);
+                    if(isNaN(value)){
+                        value=event.target.value;
+                    }
+                }
+                nextAgent[event.target.name]=value;
+                setAgent(nextAgent);
+            
+
     
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.handleAddSubmit(agent.firstName, agent.middleName, agent.lastName, agent.dob, agent.heightInInches, agent.agencies, agent.aliases);
+        props.handleAddSubmit(agent);
     };
     return (
         <form onSubmit={handleSubmit} className="form-inline mx-2 my-4">

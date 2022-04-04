@@ -23,19 +23,10 @@ useEffect(() => {
   getData();
 }, []);
 
-const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,agencies, aliases) => {
-  const newAgent = {
-    firstName,
-    middleName,
-    lastName,
-    dob,
-    heightInInches: parseFloat(heightInInches),
-    agencies,
-    aliases
-  };
-
-  const body = JSON.stringify(newAgent);
-  try {
+const handleAddSubmit = async (agent) => {
+ 
+  const body = JSON.stringify(agent);
+  
     const response = await fetch("http://localhost:8080/api/agent/", {
       method: "POST",
       headers: {
@@ -44,6 +35,8 @@ const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,
       body,
     });
 
+  }
+/*
     if (response.status === 201 || response.status === 400) {
       const data = await response.json();
 
@@ -60,7 +53,7 @@ const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,
   } catch (error) {
     console.log(error);
   }
-};
+};*/
 
 const handleEdit = (agentId) => {
   const agentToEdit = agents.find((agent) => agent.id === agentId);
@@ -172,7 +165,6 @@ setErrors([]);
           handleUpdateSubmit={handleUpdateSubmit}
           agentToEdit = {agents}
           handleUpdateCancel={handleUpdateCancel}
-
           />
           )}
      </>
