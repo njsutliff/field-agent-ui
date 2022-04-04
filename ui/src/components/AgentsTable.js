@@ -32,7 +32,7 @@ export const AgentsTable = (props) => (
                   Edit
                 </button>
                 <button
-                  onClick={() => {if (window.confirm('Are you sure you wish to delete this item?'))  props.handleDelete(agent.agentId)}}
+                  onClick={() => {if (window.confirm(`Are you sure you wish to delete agent ${agent.firstName + ' ' + agent.middleName +' ' + agent.lastName}?`))  props.handleDelete(agent.agentId)}}
                   className="btn btn-danger btn-sm ml-2"
                 >
                   Delete
