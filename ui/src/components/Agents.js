@@ -65,11 +65,6 @@ const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,
 const handleEdit = (agentId) => {
   const agentToEdit = agents.find((agent) => agent.id === agentId);
   setEditAgentId  (agentToEdit.id);
- /* setFirstName(agentToEdit.firstName);
-  setMiddleName(agentToEdit.middleName);
-  setLastName(agentToEdit.lastName);
-  setDob(agentToEdit.dob);
-  setHeight(agentToEdit.height);*/  
 };
 
 const handleUpdateSubmit = async (firstName,middleName,lastName,dob,heightInInches,agencies,aliases) => {
@@ -88,7 +83,7 @@ const handleUpdateSubmit = async (firstName,middleName,lastName,dob,heightInInch
 
   try {
     const response = await fetch(
-      `http://localhost:8080/api/agents/` + editAgentId,
+      `http://localhost:8080/api/agent/` + editAgentId,
       {
         method: "PUT",
         headers: {
@@ -182,33 +177,6 @@ setErrors([]);
           )}
      </>
 );
-    
-/*
-return (
-  <>
-    <Errors errors={errors} />
-
-    {editToDoId === 0 ? (
-      <AddAgentsForm
-        handleAddSubmit={handleAddSubmit}
-        errors={errors}
-        description={description}
-        handleUpdateCancel={handleUpdateCancel}
-      />
-    ) : (
-      <EditAgentsForm
-        handleUpdateSubmit={handleUpdateSubmit}
-        description={description}
-        handleUpdateCancel={handleUpdateCancel}
-      />
-    )}
-    <AgentsTable
-      agents={agents}
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-    />
-  </>
-);*/
 }
 
 export default Agents;
