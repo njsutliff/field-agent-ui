@@ -1,13 +1,13 @@
 # field-agent-ui
 ## Implement a full CRUD UI for agents.
 
-> Display all agents
+- [x] Display all agents
 
-> Add an agent
+- [x] Add an agent
 
 > Update an agent
 
-> Delete an agent
+- [x] Delete an agent
 
 ## Technical Requirements
 
@@ -18,6 +18,6 @@
 > You are not allowed to change the Field Agent HTTP 
  Service or database (unless there's a confirmed bug and your instructor approves)
 
-> Use a CSS framework
+- [x] Use a CSS framework
 
  
