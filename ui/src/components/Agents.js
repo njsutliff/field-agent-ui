@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {AddAgentsForm} from "./AddAgentsForm";
-//import{EditAgentsForm} from "./EditAgentsForm";
+import{EditAgentsForm} from "./EditAgentsForm";
 import {AgentsTable} from "./AgentsTable";
 import {Errors} from "./Errors.js";
 
@@ -48,8 +48,9 @@ const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,
       const data = await response.json();
 
       if (data.id) {
-        setAgents([...agents, data]);
         
+        setAgents([...agents, data]);
+        setErrors([]);
       } else {
         setErrors(data);
       }
@@ -60,36 +61,34 @@ const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,
     console.log(error);
   }
 };
-/*
+
 const handleEdit = (agentId) => {
   const agentToEdit = agents.find((agent) => agent.id === agentId);
   setEditAgentId  (agentToEdit.id);
-  setFirstName(agentToEdit.firstName);
+ /* setFirstName(agentToEdit.firstName);
   setMiddleName(agentToEdit.middleName);
   setLastName(agentToEdit.lastName);
   setDob(agentToEdit.dob);
-  setHeight(agentToEdit.height);
+  setHeight(agentToEdit.height);*/  
 };
 
-const handleUpdateSubmit = async (firstName,
-  middleName,
-  lastName,
-  dob,
-  height) => {
+const handleUpdateSubmit = async (firstName,middleName,lastName,dob,heightInInches,agencies,aliases) => {
   const updatedAgent = {
     id: editAgentId,
     firstName,
     middleName,
     lastName,
     dob,
-    height
+    heightInInches: parseFloat(heightInInches),
+    agencies,
+    aliases
   };
 
   const body = JSON.stringify(updatedAgent);
 
   try {
     const response = await fetch(
-      `http://localhost:8080/api/agents/${editAgentId}`,
+      `http://localhost:8080/api/agents/` + editAgentId,
       {
         method: "PUT",
         headers: {
@@ -112,16 +111,11 @@ const handleUpdateSubmit = async (firstName,
     middleName,
     lastName,
     dob,
-    height
+    heightInInches,
+    agencies,
+    aliases
       };
-
-      setAgents(newAgents);
-      setFirstName("");
-      setMiddleName("");
-      setLastName("");
-      setDob("");
-      setHeight("");
-     
+setAgents([...newAgents]);
       setEditAgentId(0);
       setErrors([]);
     } else if (response.status === 400) {
@@ -134,7 +128,7 @@ const handleUpdateSubmit = async (firstName,
     console.log(error);
   }
 };
-*/
+
 const handleDelete = async (agentId) => {
   try {
     const response = await fetch(
@@ -164,19 +158,29 @@ setErrors([]);
  return ( 
   <>
     <Errors errors={errors} />
+   
     <h5>Active Agents</h5>
     <AgentsTable
       agents={agents}
       handleDelete={handleDelete}
-    /> 
-    <h5>Add an Agent</h5>
-
+      handleEdit = {handleEdit}
+    /> <h5>Add an Agent</h5>
+     {editAgentId === 0 ? (
     <AddAgentsForm
         handleAddSubmit={handleAddSubmit}
         errors={errors}
         handleUpdateCancel={handleUpdateCancel}
       />
-  </>
+      ) : (
+    
+    <EditAgentsForm
+          handleUpdateSubmit={handleUpdateSubmit}
+          agentToEdit = {agents}
+          handleUpdateCancel={handleUpdateCancel}
+
+          />
+          )}
+     </>
 );
     
 /*

@@ -11,11 +11,11 @@
 
 ## Technical Requirements
 
-> Use Create React App
+- [x] Use Create React App
 
-> Use fetch for async HTTP
+- [x] Use fetch for async HTTP
 
-> You are not allowed to change the Field Agent HTTP 
+- [x] You are not allowed to change the Field Agent HTTP 
  Service or database (unless there's a confirmed bug and your instructor approves)
 
 - [x] Use a CSS framework
