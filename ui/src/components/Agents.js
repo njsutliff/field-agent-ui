@@ -147,6 +147,7 @@ const handleDelete = async (agentId) => {
     if (response.status === 204) {
       const newAgents = agents.filter((agent) => agent.id !== agentId);
       setAgents(newAgents);
+      window.location.reload();
     } else {
       throw new Error("Server Error: Something unexpected went wrong.");
     }
@@ -156,7 +157,7 @@ const handleDelete = async (agentId) => {
 };
 
 const handleUpdateCancel = () => {
-
+window.location.reload();
   setEditAgentId(0);
 setErrors([]);
 };
