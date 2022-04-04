@@ -1,21 +1,14 @@
 import React from "react";
- /*"agentId": 1,
-"firstName": "Claudian",
-"middleName": "C",
-"lastName": "O'Lynn",
-"dob": "1956-11-09",
-"heightInInches": 41,
-*/
 export const AgentsTable = (props) => (
     <table className="table">
     <thead>
       <tr>
+        <th>ID</th>
         <th>First Name</th>
         <th>Middle Name</th>
         <th>Last Name</th>
         <th>Date of Birth</th>
         <th>Height (inches)</th>
-        <th>Agencies</th>
 
       </tr>
     </thead>
@@ -23,12 +16,12 @@ export const AgentsTable = (props) => (
       {props.agents.length > 0 ? (
         props.agents.map((agent) => (
           <tr key={agent.id}>
+            <td>{agent.agentId}</td>
             <td>{agent.firstName}</td>
             <td>{agent.middleName}</td>
             <td>{agent.lastName}</td>
             <td>{agent.dob}</td>
-            <td>{agent.height}</td>
-            <td>{agent.agencies}</td>
+            <td>{agent.heightInInches}</td>
 
             <td>
               <div>
@@ -39,7 +32,7 @@ export const AgentsTable = (props) => (
                   Edit
                 </button>
                 <button
-                  onClick={() => props.handleDelete(agent.id)}
+                  onClick={() => props.handleDelete(agent.agentId)}
                   className="btn btn-danger btn-sm ml-2"
                 >
                   Delete

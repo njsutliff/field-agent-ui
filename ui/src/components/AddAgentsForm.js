@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-const DEFAULT_AGENT =  {firstName: "", middleName: "",lastName: "",dob: "",heightInInches: 0, agencies: []};
+const DEFAULT_AGENT =  {firstName: "", middleName: "",lastName: "",dob: "",heightInInches: 0, agencies: [], aliases: []};
 export const AddAgentsForm = (props) => {
 
     const [agent, setAgent] = useState(DEFAULT_AGENT);
@@ -24,7 +24,7 @@ export const AddAgentsForm = (props) => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.handleAddSubmit(agent.firstName, agent.middleName, agent.lastName, agent.dob, agent.heightInInches, agent.agencies);
+        props.handleAddSubmit(agent.firstName, agent.middleName, agent.lastName, agent.dob, agent.heightInInches, agent.agencies, agent.aliases);
     };
     return (
         <form onSubmit={handleSubmit} className="form-inline mx-2 my-4">
@@ -59,7 +59,7 @@ export const AddAgentsForm = (props) => {
                 
                 className="form-control col-6"
                 id="dob"
-                placeholder="Date of Birth:"
+                placeholder="Date of Birth [Year]-[Month]-[Day]:"
                 value={agent.dob} 
                 name="dob"
                 label="date of birth"
@@ -77,7 +77,16 @@ export const AddAgentsForm = (props) => {
             />
             <button type="submit" className="btn btn-success ml-2">
                 Add agent
-            </button>   
+            </button>
+            {agent.firstName || props.errors.length > 0 ? (
+                <button
+            className="btn btn-warning ml-2"
+            type="button"
+             onClick={props.handleUpdateCancel}
+                >
+                 Cancel
+                </button>
+            ) : null}
         </form>
     );
 };

@@ -7,14 +7,6 @@ import {Errors} from "./Errors.js";
 function Agents() {
   const [agents, setAgents] = useState([]);
 
-//TODO i dont think useState works like this
-
-const [firstName, setFirstName] = useState("");
-  const [middleName, setMiddleName] = useState("");   
-  const [lastName, setLastName] = useState("");    
-  const [dob, setDob] = useState(""); 
-  const [heightInInches, setHeightInInches] = useState(0);
-  //const[agencies, setAgencies] = useState([]);
   const [editAgentId, setEditAgentId] = useState(0);
   const [errors, setErrors] = useState([]);
 
@@ -31,14 +23,15 @@ useEffect(() => {
   getData();
 }, []);
 
-const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,agencies) => {
+const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,agencies, aliases) => {
   const newAgent = {
     firstName,
     middleName,
     lastName,
     dob,
     heightInInches: parseFloat(heightInInches),
-    agencies
+    agencies,
+    aliases
   };
 
   const body = JSON.stringify(newAgent);
@@ -141,19 +134,19 @@ const handleUpdateSubmit = async (firstName,
     console.log(error);
   }
 };
-
-const handleDelete = async (todoId) => {
+*/
+const handleDelete = async (agentId) => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/agents/${todoId}`,
+      `http://localhost:8080/api/agent/` + agentId,
       {
         method: "DELETE",
       }
     );
 
     if (response.status === 204) {
-      const newTodos = agents.filter((todo) => todo.id !== todoId);
-      setAgents(newTodos);
+      const newAgents = agents.filter((agent) => agent.id !== agentId);
+      setAgents(newAgents);
     } else {
       throw new Error("Server Error: Something unexpected went wrong.");
     }
@@ -163,12 +156,10 @@ const handleDelete = async (todoId) => {
 };
 
 const handleUpdateCancel = () => {
-  setDescription("");
-  setEditToDoId(0);
-  setErrors([]);
-};
-*/
 
+  setEditAgentId(0);
+setErrors([]);
+};
  return ( 
   <>
     <Errors errors={errors} />
@@ -176,11 +167,13 @@ const handleUpdateCancel = () => {
       <AddAgentsForm
         handleAddSubmit={handleAddSubmit}
         errors={errors}
+        handleUpdateCancel={handleUpdateCancel}
       />
   
     <AgentsTable
       agents={agents}
-      
+      handleDelete={handleDelete}
+
     />
   </>
 );
