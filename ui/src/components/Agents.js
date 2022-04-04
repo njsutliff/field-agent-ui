@@ -34,7 +34,7 @@ const handleAddSubmit = async (agent) => {
       },
       body,
     });
-
+    window.location.reload();
   }
 const handleEdit = (agent) => {
   console.log("agent: ");
@@ -118,7 +118,7 @@ setErrors([]);
       agents={agents}
       handleDelete={handleDelete}
       handleEdit = {handleEdit}
-    /> <h5>Add an Agent</h5>
+    /> 
      {editAgentId === 0 ? (
     <AddAgentsForm
         handleAddSubmit={handleAddSubmit}
@@ -126,11 +126,10 @@ setErrors([]);
         handleUpdateCancel={handleUpdateCancel}
       />
       ) : (
-    <EditAgentsForm
-          handleUpdateSubmit={handleUpdateSubmit}
-          agentEdit = {agentEdit}
-          handleUpdateCancel={handleUpdateCancel}
-          />
+        <><h5>Edit an Agent </h5><EditAgentsForm
+           handleUpdateSubmit={handleUpdateSubmit}
+           agentEdit={agentEdit}
+           handleUpdateCancel={handleUpdateCancel} /></>
           )}
      </>
 );
