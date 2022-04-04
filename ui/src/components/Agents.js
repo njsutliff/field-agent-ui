@@ -164,18 +164,18 @@ setErrors([]);
  return ( 
   <>
     <Errors errors={errors} />
-    
-      <AddAgentsForm
+    <h5>Active Agents</h5>
+    <AgentsTable
+      agents={agents}
+      handleDelete={handleDelete}
+    /> 
+    <h5>Add an Agent</h5>
+
+    <AddAgentsForm
         handleAddSubmit={handleAddSubmit}
         errors={errors}
         handleUpdateCancel={handleUpdateCancel}
       />
-  
-    <AgentsTable
-      agents={agents}
-      handleDelete={handleDelete}
-
-    />
   </>
 );
     
