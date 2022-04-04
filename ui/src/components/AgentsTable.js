@@ -27,7 +27,7 @@ export const AgentsTable = (props) => (
               <div>
                 <button
                   className="btn btn-primary btn-sm"
-                  onClick={() => props.handleEdit(agent.id)}
+                  onClick={() => props.handleEdit(agent)}
                 >
                   Edit
                 </button>
