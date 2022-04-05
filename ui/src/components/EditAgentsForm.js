@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export const EditAgentsForm = (props) => {
-  const [agent, setAgent] = useState(props.agentToEdit);
+  const [agent, setAgent] = useState(props.agentEdit);
 
   const handleInputChange = event => {
       const { name, value } = event.target;

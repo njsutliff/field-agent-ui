@@ -9,7 +9,7 @@ function Agents() {
 
   const [editAgentId, setEditAgentId] = useState(0);
   const [errors, setErrors] = useState([]);
-
+  const [agentEdit, setAgentEdit] = useState([]);
 useEffect(() => {
   const getData = async () => {
     try {
@@ -23,19 +23,10 @@ useEffect(() => {
   getData();
 }, []);
 
-const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,agencies, aliases) => {
-  const newAgent = {
-    firstName,
-    middleName,
-    lastName,
-    dob,
-    heightInInches: parseFloat(heightInInches),
-    agencies,
-    aliases
-  };
-
-  const body = JSON.stringify(newAgent);
-  try {
+const handleAddSubmit = async (agent) => {
+ 
+  const body = JSON.stringify(agent);
+  
     const response = await fetch("http://localhost:8080/api/agent/", {
       method: "POST",
       headers: {
@@ -43,47 +34,27 @@ const handleAddSubmit = async (firstName,middleName,lastName,dob,heightInInches,
       },
       body,
     });
-
-    if (response.status === 201 || response.status === 400) {
-      const data = await response.json();
-
-      if (data.id) {
-        
-        setAgents([...agents, data]);
-        setErrors([]);
-      } else {
-        setErrors(data);
-      }
-    } else {
-      throw new Error("Server Error: Something unexpected went wrong.");
-    }
-  } catch (error) {
-    console.log(error);
+    window.location.reload();
   }
-};
+const handleEdit = (agent) => {
+  console.log("agent: ");
+  console.log(agent);
+  setEditAgentId  (agent.agentId);
+  console.log("agentToEdit.id: ");
 
-const handleEdit = (agentId) => {
-  const agentToEdit = agents.find((agent) => agent.id === agentId);
-  setEditAgentId  (agentToEdit.id);
+  console.log(agent.agentId);
+  setAgentEdit(agent);
 };
-
-const handleUpdateSubmit = async (firstName,middleName,lastName,dob,heightInInches,agencies,aliases) => {
+const handleUpdateSubmit = async (agentEdit) => {
   const updatedAgent = {
-    id: editAgentId,
-    firstName,
-    middleName,
-    lastName,
-    dob,
-    heightInInches: parseFloat(heightInInches),
-    agencies,
-    aliases
+    id: agentEdit.agentId,
+    ...agentEdit
   };
-
   const body = JSON.stringify(updatedAgent);
 
   try {
     const response = await fetch(
-      `http://localhost:8080/api/agent/` + editAgentId,
+      `http://localhost:8080/api/agent/` + agentEdit.agentId,
       {
         method: "PUT",
         headers: {
@@ -94,28 +65,18 @@ const handleUpdateSubmit = async (firstName,middleName,lastName,dob,heightInInch
     );
 
     if (response.status === 204) {
+      window.location.reload();
       const newAgents = [...agents];
 
       const agentIndexToEdit = agents.findIndex(
         (agent) => agent.id === editAgentId
       );
 
-      newAgents[agentIndexToEdit] = {
-        id: editAgentId,
-        firstName,
-    middleName,
-    lastName,
-    dob,
-    heightInInches,
-    agencies,
-    aliases
-      };
 setAgents([...newAgents]);
       setEditAgentId(0);
       setErrors([]);
     } else if (response.status === 400) {
       const data = await response.json();
-      setErrors(data);
     } else {
       throw new Error("Server Error: Something unexpected went wrong.");
     }
@@ -132,7 +93,6 @@ const handleDelete = async (agentId) => {
         method: "DELETE",
       }
     );
-
     if (response.status === 204) {
       const newAgents = agents.filter((agent) => agent.id !== agentId);
       setAgents(newAgents);
@@ -153,13 +113,12 @@ setErrors([]);
  return ( 
   <>
     <Errors errors={errors} />
-   
     <h5>Active Agents</h5>
     <AgentsTable
       agents={agents}
       handleDelete={handleDelete}
       handleEdit = {handleEdit}
-    /> <h5>Add an Agent</h5>
+    /> 
      {editAgentId === 0 ? (
     <AddAgentsForm
         handleAddSubmit={handleAddSubmit}
@@ -167,13 +126,10 @@ setErrors([]);
         handleUpdateCancel={handleUpdateCancel}
       />
       ) : (
-    
-    <EditAgentsForm
-          handleUpdateSubmit={handleUpdateSubmit}
-          agentToEdit = {agents}
-          handleUpdateCancel={handleUpdateCancel}
-
-          />
+        <><h5>Edit an Agent </h5><EditAgentsForm
+           handleUpdateSubmit={handleUpdateSubmit}
+           agentEdit={agentEdit}
+           handleUpdateCancel={handleUpdateCancel} /></>
           )}
      </>
 );
