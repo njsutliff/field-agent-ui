@@ -1,23 +1,74 @@
-# field-agent-ui
-## Implement a full CRUD UI for agents.
+# field-agent-secured
 
-- [x] Display all agents
+* [ ] Features (each feature complete, works without errors)
+  * [ ] Home
+  * [ ] Login
+  * [ ] Agents
+  * [ ] Add Agent
+  * [ ] Edit Agent
+  * [ ] Delete Agent
+  * [ ] Not Found (displays for all unknown routes)
+* [ ] Security
+  * [ ] AuthController (API endpoint added to the backend for authenticating users)
+  * [ ] Login State (the current logged in user's username displays somewhere on the page along with a "Logout" button)
+  * [ ] Logout (app provides a way for the current user to logout)
+  * [ ] Protected Routes (Agents, Add Agent, Edit Agent, and Delete Agent [if implemented] require a logged in user)
+* [ ] React Router
+  * [ ] Client-Side Routes (all required routes implemented)
+  * [ ] `useHistory` Hook (used to programmatically redirect users)
+  * [ ] `useParams` Hook (used to access parameters, paths, and other data)
+* [ ] React Context (used to share global state and helper functions to components throughout the app)
+* [ ] Fetch API (used for all async HTTP requests to the backend data service)
+* [ ] JavaScript (valid, well-organized, clean and consistent formatting)
+* [ ] JSX (valid, well-organized, clean and consistent formatting)
+* [ ] HTML/CSS (used a CSS framework)
 
-- [x] Add an agent
+## Test Plan
 
-> Update an agent
-
-- [x] Delete an agent
-
-## Technical Requirements
-
-- [x] Use Create React App
-
-- [x] Use fetch for async HTTP
-
-- [x] You are not allowed to change the Field Agent HTTP 
- Service or database (unless there's a confirmed bug and your instructor approves)
-
-- [x] Use a CSS framework
-
+* [ ] Home
+  * [ ] Displays when browsing to `/`
+  * [ ] Available to all users (anonymous and authenticated)
+* [ ] Login
+  * [ ] Displays when browsing to `/login`
+  * [ ] Includes "Username" and "Password" fields
+  * [ ] Login fails for bad username/password combination
+  * [ ] Generic "login failed" message displayed in the UI on failed login attempt
+  * [ ] Login succeeds for good username/password combination
+  * [ ] User is redirected to the "Home" page after a successful login
+* [ ] Security
+  * [ ] Username and "Logout" button is displayed on every page after a successful login
+  * [ ] Clicking the "Logout" button logs out the current user
+  * [ ] User is redirected to the "Login" page when attempting to browse to any of the agent related routes without being logged in
+* [ ] Agents
+  * [ ] Displays when browsing to `/agents`
+  * [ ] Displays a list of the agents with basic information from the backend service
+  * [ ] Includes a button/link to browse to the "Add Agent" page
+  * [ ] For each agent, includes buttons/links to browse to the "Edit Agent" and "Delete Agent" pages for the associated agent
+* [ ] Add Agent
+  * [ ] Displays when browsing to `/agents/add`
+  * [ ] Displays a form for the user to enter an agent's information
+  * [ ] Includes a button to submit the form
+  * [ ] Includes a button/link to cancel the add operation and return to the "Agents" page
+  * [ ] API validation errors are displayed in the UI when submitting bad data
+  * [ ] An agent's information can be entered into the form and when the form is submitted, the agent is added to the backend service
+  * [ ] The user is redirect to the "Agents" page after successfully creating an agent
+* [ ] Edit Agent
+  * [ ] Displays when browsing to `/agents/edit/1` (replace `1` with a valid agent ID)
+  * [ ] Displays a form for the user to edit an agent's information
+  * [ ] Includes a button to submit the form
+  * [ ] Includes a link to cancel the edit operation and return to the "Agents" page
+  * [ ] The form pre-populates with the agent's current information
+  * [ ] API validation errors are displayed in the UI when submitting bad data
+  * [ ] The agent's information can be changed in the form and when the form is submitted, the agent is updated in the backend service
+  * [ ] The user is redirect to the "Agents" page after successfully updating an agent
+* [ ] Delete Agent
+  * [ ] Displays when browsing to `/agents/delete/1` (replace `1` with a valid agent ID)
+  * [ ] Displays an agent's basic information
+  * [ ] Displays a delete confirmation message
+  * [ ] Includes a button to complete the delete operation
+  * [ ] Includes a link to cancel the delete operation and return to the "Agents" page
+  * [ ] Proceeding with the delete operation removes the agent from the backend service
+  * [ ] The user is redirect to the "Agents" page after successfully deleting an agent
+* [ ] Not Found
+  * [ ] Attempting to browse to an unknown route displays the "Not Found" page
  
