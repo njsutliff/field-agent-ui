@@ -1,7 +1,7 @@
-// Will be home page
-// should probably have login component -> links to here, then [add, delete, edit] links
-import React from 'react'
+import React from "react";
 
-export default function Home(){
-    return <h1>Home</h1>;
-}
+const Home = () => {
+  return <h2>Home</h2>;
+};
+
+export default Home;

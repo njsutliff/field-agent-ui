@@ -2,32 +2,41 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
+  Routes
 } from "react-router-dom";
 import Agents from './components/Agents';
 import Home from './components/Home';
-import { AddAgentsForm } from './components/AddAgentsForm';
-import { EditAgentsForm } from './components/EditAgentsForm';
+import NotFound from './components/NotFound';
 function App() {
-  return (
-  
-/*<>  
-<h2 className ="my-4">Field Agent UI </h2>
+  /*
 
+  /
+ /agents
+ /agents/add
+ /agents/edit/:id
+ /agents/delete/:id
+ /login
+ / else 'Not Found'
+  */ return (
+<>  
     <Router>
-    <Route path="/agents">
-      <Agents />
-    </Route>
-    <Route  exact path="/">
-         <Home />
-                    </Route>
+      <Routes>
+      <Route exact path="/">
+          <Home />
+      </Route>
+      <Route path = "/agents">
+        <Agents/>
+      </Route>
+      <Route path="*">
+          <NotFound />
+      </Route>
+      </Routes>
     </Router>
- </>*/
-
-
-<>
+ </>  
+/*
     <h2 className ="my-4">Field Agent UI </h2>
     <Agents/>
-</>
+*/
   )
   }
   export default App;
