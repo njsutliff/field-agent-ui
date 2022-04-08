@@ -1,6 +1,7 @@
 package learn.field_agent.security;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,9 +28,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
 
         http.authorizeRequests()
+                .antMatchers("/authenticate").permitAll()
+                .antMatchers("/create_account").permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/api/agent", "/api/agent/*").permitAll()
+                .antMatchers(HttpMethod.POST,
+                        "/api//agent").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT,
+                        "/api/agent/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE,
+                        "/api/agent/*").hasAnyRole("ADMIN")
+                //.antMatchers("/**").denyAll()
+                //.anyRequest().authenticated()
                 // TODO add antMatchers here to configure access to specific API endpoints
                 // require authentication for any request...
-                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(), converter))
                 .sessionManagement()
