@@ -1,37 +1,20 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
-  Routes
+  Routes,
 } from "react-router-dom";
-import Agents from './components/Agents';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 function App() {
-  /*
-
-  /
- /agents
- /agents/add
- /agents/edit/:id
- /agents/delete/:id
- /login
- / else 'Not Found'
-  */ return (
+   return (
 <>  
-    <Router>
+    <BrowserRouter>
       <Routes>
-      <Route exact path="/">
-          <Home />
-      </Route>
-      <Route path = "/agents">
-        <Agents/>
-      </Route>
-      <Route path="*">
-          <NotFound />
-      </Route>
+      <Route path="/" element = {<Home />}/>
+      <Route path="*" element = {<NotFound/>}/>
       </Routes>
-    </Router>
+    </BrowserRouter>
  </>  
 /*
     <h2 className ="my-4">Field Agent UI </h2>
